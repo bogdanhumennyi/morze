@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+</head>
+<body>
+<div>Text: <input type="text" id="morse"></div>
+<div>En text: <input type="text" id="encode" readonly="true"></div>
+<div>De text: <input type="text" id="decode" readonly="true"></div>
+<div>
+  <button onclick="encode(); return false">Encode</button>
+  <button onclick="decode(); return false">Decode</button>
+</div>
+	<script type="text/javascript">
+let _MorseCode = {
+  "A": ".-",    "B": "-...",  "C": "-.-.",  "D": "-..",
+  "E": ".",     "F": "..-.",  "G": "--.",   "H": "....",
+  "I": "..",    "J": ".---",  "K": "-.-",   "L": ".-..",
+  "M": "--",    "N": "-.",    "O": "---",   "P": ".--.",
+  "Q": "--.-",  "R": ".-.",   "S": "...",   "T": "-",
+  "U": "..-",   "V": "...-",  "W": ".--",   "X": "-..-",
+  "Y": "-.--",  "Z": "--..",  " ": " ",     "1": ".----",
+  "2": "..---", "3": "...--", "4": "....-", "5": ".....",
+  "6": "-....", "7": "--...", "8": "---..", "9": "----.",
+  "0": "-----", ".": ".-.-.-", ",": "--..--", "?": "..--..",
+  "'": ".----.",
+  "/": "-..-.",  "(": "-.--.",  ")": "-.--.-",  "&": ".-...",
+  ":": "---...", ";": "-.-.-.", "=": "-...-",   "+": ".-.-.",
+  "-": "-....-", "_": "..--.-", "\"": ".-..-.", "$": "...-..-",
+  "!": "-.-.--", "@": ".--.-."
+}
+let text;
+let morse;
+function encode() {
+	text = document.getElementById('morse').value.toLocaleUpperCase().split("");
+	morse = "";
+	for(var i = 0; i < text.length; i++) {
+		morse += _MorseCode[text[i]];
+		if(text[i] != " ") {
+			morse += " ";
+		}
+	}
+	document.getElementById("encode").value = morse;
+}
+
+function decode() {
+	text = document.getElementById('encode').value.toLocaleUpperCase().split(" ");
+	morse = "";
+	for(var i = 0; i < text.length; i++) {
+		if(text[i] == "") {
+			morse += " ";
+		} else {
+			morse += Object.keys(_MorseCode)[Object.values(_MorseCode).indexOf(text[i])];
+		}
+	}
+	document.getElementById("decode").value = morse;
+}
+	</script>
+</body>
+</html>
